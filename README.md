@@ -1,7 +1,7 @@
 # SIIM-ISIC-Melanoma-Classification
 Les codes avec le langage Python.py
 
-- Installation and Requirement
+      Installation and Requirement
 
 - sklearn.metrics 
 - tqdm.notebook
@@ -10,14 +10,14 @@ Les codes avec le langage Python.py
 - albumentations
 - torch.utils.data
 
-- Methode special: 
+      Methode special: 
 - Geffnet : méthode efficient net : modèles Effnet-B7 avec une taille d'entrée de 640
 - Enetv2 : modèle d’un format spécifique
 - Librairie albumentation : Pour créer plus de data
 - Tqdm :Visualiser la progression de nos itération
 
-Table of Contents
-Introduction
+          Table of Contents
+      Introduction
 Le mélanome est une tumeur maligne développée à partir des mélanocytes (cellule épithéliale qui sécrète de la mélanine qui est à l'origine de la pigmentation de la peau et des poils).
 C'est l'un des cancers les plus agressifs qui soient, mais le traitement à une phase qui permet de guérir le patient.
 
