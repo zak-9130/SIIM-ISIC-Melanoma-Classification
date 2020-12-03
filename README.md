@@ -16,7 +16,8 @@ Les codes avec le langage Python.py
 - Librairie albumentation : Pour créer plus de data
 - Tqdm :Visualiser la progression de nos itération
 
-          Table of Contents
+Table of Contents
+
       Introduction
 Le mélanome est une tumeur maligne développée à partir des mélanocytes (cellule épithéliale qui sécrète de la mélanine qui est à l'origine de la pigmentation de la peau et des poils).
 C'est l'un des cancers les plus agressifs qui soient, mais le traitement à une phase qui permet de guérir le patient.
@@ -29,11 +30,11 @@ Tokyo, Japan) pour obtenir une excellente place au concours Kaggle sur la Classi
 Ce "repo" concerne le résultat du concours Kaggle "SIIM-ISIC Melanoma Classification" où il s'agissait d'identifier le mélanome sur les images de lésions cutanées permettant de développer un outil d'analyse d'images cutanées qui pourraient aider les dermatologues cliniciens.
 Le modèle ici doit prédire une target binaire pour chaque image. La prédiction est proche de 0 lorsque la lésion est bénigne et proche de 1 lorsqu’elle indique une lésion maligne.
 
-- License 
+       License 
 Licence internationale non commerciale 4.0 : https://creativecommons.org/licenses/by-nc/4.0/legalcode.txt 
 
 
-- Implementation Details and Training Process
+       Implementation Details and Training Process
 
 DATA: L'ensemble de données contient 33126 images d'entrainement dermoscopiques de lésions cutanées bénignes et malignes provenant de plus de 2000 patients. Chaque image es associée à l'une de ces personnes à l'aide d'un identifiant unique du patient.
  L'ensemble de données a été généré par la Collaboration internationale en imagerie cutanée (ISIC) et les images proviennent des sources suivantes : Hôpital Clínic de Barcelone, Université de médecine de Vienne, Centre du cancer Memorial Sloan Kettering, Institut du mélanome d'Australie, Université du Queensland, et l'école de médecine de l'Université d'Athènes.
@@ -51,14 +52,14 @@ Colonnes des fichiers :
 - benign_malignant :  indicateur de malignité d'une lésion imagée
 - target : version binarisée de la cible (maligne)
 
-Différentes Parties du codage
+        Différentes Parties du codage
 
 - Read CSV 
 - Model : 
 - Validation function
 - Predict
 
-Conclusion
+       Conclusion
 
 - Auc_all :
 --->    Roc_auc_score = 0.94
