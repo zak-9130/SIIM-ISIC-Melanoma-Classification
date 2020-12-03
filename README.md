@@ -58,13 +58,13 @@ Différentes Parties du codage
 -->	Predict
 
 Conclusion
-- Auc_all :
-Roc_auc_score = 0.94
-Roc_auc_score per fold= 0.94
+--> Auc_all :
+- Roc_auc_score = 0.94
+- Roc_auc_score per fold= 0.94
 
-- Auc_2020 :
-Roc_auc=0.8974358974358975
-Roc_auc per fold =0.9615384615384615
+--> Auc_2020 :
+- Roc_auc=0.8974358974358975
+- Roc_auc per fold =0.9615384615384615
 
 
 
