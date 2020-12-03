@@ -52,10 +52,10 @@ Colonnes des fichiers :
 
 Différentes Parties du codage
 
--->	Read CSV 
--->	Model : 
---> Validation function
--->	Predict
+- Read CSV 
+- Model : 
+- Validation function
+- Predict
 
 Conclusion
 --> Auc_all :
