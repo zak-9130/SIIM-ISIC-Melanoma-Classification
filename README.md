@@ -58,7 +58,7 @@ Différentes Parties du codage
 - Predict
 
 Conclusion
---> Auc_all :
+_Auc_all :
 - Roc_auc_score = 0.94
 - Roc_auc_score per fold= 0.94
 
