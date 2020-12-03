@@ -3,12 +3,12 @@ Les codes avec le langage Python.py
 
 Installation and Requirement
 
-sklearn.metrics 
-tqdm.notebook
-PIL.Image
-matplotlib.pyplot
-albumentations
-torch.utils.data
+- sklearn.metrics 
+- tqdm.notebook
+- PIL.Image
+- matplotlib.pyplot
+- albumentations
+- torch.utils.data
 Methode special: 
 - Geffnet : méthode efficient net : modèles Effnet-B7 avec une taille d'entrée de 640
 - Enetv2 : modèle d’un format spécifique
@@ -58,11 +58,11 @@ Différentes Parties du codage
 -->	Predict
 
 Conclusion
-Auc_all
+- Auc_all
 Roc_auc_score = 0.94
 Roc_auc_score per fold= 0.94
 
-Auc_2020
+- Auc_2020
 Roc_auc=0.8974358974358975
 Roc_auc per fold =0.9615384615384615
 
