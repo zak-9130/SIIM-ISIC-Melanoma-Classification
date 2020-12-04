@@ -40,13 +40,14 @@ Le modèle ici doit prédire une target binaire pour chaque image. La prédictio
 
    ## Description des données
 
-DATA: L'ensemble de données contient 33126 images d'entrainement dermoscopiques de lésions cutanées bénignes et malignes provenant de plus de 2000 patients. Chaque image es associée à l'une de ces personnes à l'aide d'un identifiant unique du patient.
+L'ensemble de données contient 33126 images d'entrainement dermoscopiques de lésions cutanées bénignes et malignes provenant de plus de 2000 patients. Chaque image es associée à l'une de ces personnes à l'aide d'un identifiant unique du patient.
  L'ensemble de données a été généré par la Collaboration internationale en imagerie cutanée (ISIC) et les images proviennent des sources suivantes : Hôpital Clínic de Barcelone, Université de médecine de Vienne, Centre du cancer Memorial Sloan Kettering, Institut du mélanome d'Australie, Université du Queensland, et l'école de médecine de l'Université d'Athènes.
 - train.csv - le kit de formation
 - test.csv - le jeu de test
 - sample_submission.csv - un exemple de fichier de soumission dans le format correct
 
-Colonnes des fichiers :
+Eléments du dossier:
+
 - image_name : identifiant unique, renvoie au nom de fichier de l'image DICOM correspondante
 - patient_id : identifiant unique du patient
 - le sexe :  le sexe du patient 
@@ -57,6 +58,8 @@ Colonnes des fichiers :
 - target : version binarisée de la cible (maligne)
 
     ## Validation du modèle
+    
+    La metrique choisit pour valider le modèle est l'auc score qui correspond à l'aire sous la courbe ROC, plus la valeur de la metric se raproche de 1 plus le modèle est précis.
 
 - Auc_all :
 --->    Roc_auc_score = 0.94
