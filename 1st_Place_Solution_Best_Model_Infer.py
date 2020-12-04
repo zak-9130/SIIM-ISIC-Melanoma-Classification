@@ -7,10 +7,11 @@ Original file is located at
     https://colab.research.google.com/drive/11-Makq8wQdi9JAfSdggAvFuRK782-uju
 """
 
-#activation du mode Debug qui permettra d’afficher les erreurs à l’écran.
 DEBUG = True
+# Ici Debug permet de gerer des cas spécifique du code grace aux booléens (ex: Test avec une taille de batch multiplié par 3. => voir partie Predict)
+# Concatenation de notre target prenant en compte les cas melanoma avec les differents cas diagnostiqués si DEBUG = True
 
-#Classes GenEfficientNet avec des définitions d'architecture basées sur des chaînes de caractères pour configurer les schémas de blocs.
+#Installation de la librairie GenEfficientNet avec des définitions d'architecture basées sur des chaînes de caractères pour configurer les schémas de blocs.
 !pip -q install geffnet
 
 # Commented out IPython magic to ensure Python compatibility.
@@ -35,15 +36,17 @@ import torch.nn.functional as F
 import albumentations as A
 import geffnet
 
-device = torch.device('cuda') # GPU utiliser carte graphique configuration
+device = torch.device('cuda') 
+# Package de Pytorch permettant de faire nos calculs à l'aide de la GPU au lieu de la CPU
+# Ce qui permet d'optimiser la distribution de nos différents calculs
 
-kernel_type = '9c_b7_1e_640_ext_15ep'
+kernel_type = '9c_b7_1e_640_ext_15ep' # type de filtre utilisé 
 image_size = 640 
 use_amp = False
 data_dir = '../input/jpeg-melanoma-768x768'. # attribut de data_dir à un chemin du dossier
 data_dir2 = '../input/jpeg-isic2019-768x768' # attribut de data_dir2 à un chemin
 model_dir = '../input/melanoma-best-single-model-no-meta-data'
-enet_type = 'efficientnet-b7' #######
+enet_type = 'efficientnet-b7' # Modèle de classification d'image utilisé
 batch_size = 32.#nombre d'échantillons qui seront propagés à travers le réseau pour l'entrainement.
 num_workers = 4. # num_workers indique à l'instance de chargement des données le nombre de sous-processus à utiliser pour le chargement des données.
 out_dim = 9
@@ -82,6 +85,8 @@ df_train['diagnosis'] = df_train['diagnosis'].apply(lambda x: x.replace('lentigo
 df_train['diagnosis'] = df_train['diagnosis'].apply(lambda x: x.replace('cafe-au-lait macule', 'unknown')) # tâche de naissance 
 df_train['diagnosis'] = df_train['diagnosis'].apply(lambda x: x.replace('atypical melanocytic proliferation', 'unknown'))
 
+#lambda x: x.replace('x','y') permet de remplacer l'élément x par l'élément y. 
+
 df_train['diagnosis'].value_counts() # Obtention du nonmbre de chaque élément dans diagnosis
 
 if use_external:
@@ -110,10 +115,10 @@ diagnosis2idx
 class SIIMISICDataset(Dataset): #Class avec dataset en argument
     def __init__(self, csv, split, mode, transform=None): 
 ##########################################################################
-# La méthode particulière __init__qui permet d'initialiser les attributs###
-# internes ici, un fichier csv, split mode et transform = None ########@##
-# En python, self représente l'instance de la classe ###################@#
-# et se place toujours en premier argument d'une méthode.##########@######@
+# La méthode particulière __init__qui permet d'initialiser les attributs #
+# internes ici, un fichier csv, split mode et transform = None           #
+# En python, self représente l'instance de la classe                     #
+# et se place toujours en premier argument d'une méthode.                #
 ##########################################################################
 
         self.csv = csv.reset_index(drop=True) # lors de l'import du csv on l'instancie en initialisant ces index par une colonne de valeur de [0;len(dataset))
@@ -121,7 +126,7 @@ class SIIMISICDataset(Dataset): #Class avec dataset en argument
         self.mode = mode
         self.transform = transform
 
-        # Les valeurs de split, mode et transform sont initialisé avec les valeurs choisi lorsque l'on instancie la class SIIMISICDataset
+        # Les valeurs de split, mode et transform sont initialisé par les valeurs données lors de l'instanciation de la class SIIMISICDataset.
 
     def __len__(self): #La fonction len est une fonction prédéfinie qui retourne la longueur d'un objet. ici on retourne la taille du fichier CSV
         return self.csv.shape[0]
@@ -129,8 +134,8 @@ class SIIMISICDataset(Dataset): #Class avec dataset en argument
     def __getitem__(self, index):
         row = self.csv.iloc[index]
         
-        image = cv2.imread(row.filepath) # On lit, on charge une image situé dans un chemin specifique à chaque row
-        image = image[:, :, ::-1] # On recupere toutes les lignes toutes les colones et la troisieme dimenssion en partant de la derniere valeur jusquà la premiere
+        image = cv2.imread(row.filepath) # On charge une image situé dans un chemin specifique à chaque row
+        image = image[:, :, ::-1] # On recupère toutes les lignes et toutes les colones et la troisieme dimenssion est egale à l'inverse d'elle même.
 
         if self.transform is not None: # si transform n'est pas null 
             res = self.transform(image=image) # on transforme ce qu'il y a en image et on converti les données en float
@@ -138,14 +143,14 @@ class SIIMISICDataset(Dataset): #Class avec dataset en argument
         else:
             image = image.astype(np.float32)# sinon on converti les données en float
 
-        image = image.transpose(2, 0, 1) # on transpose notre image la 3eme dimenssion devient lere la premiere devient la deuxiemme et la deuxiemme devient la troisieme
+        image = image.transpose(2, 0, 1) # on transpose notre image la 3eme dimenssion devient 1ère, la premiere devient la 2ème et la deuxiemme devient la 3ème.
 
         if self.mode == 'test': 
-            return torch.tensor(image).float()# si notre argument mode = test on renvoievun tenseur de données en float de la taille de notre image
+            return torch.tensor(image).float()# si notre argument mode = test on renvoie un tenseur de données en float de la taille de notre image
         else:
-            return torch.tensor(image).float(), torch.tensor(self.csv.iloc[index].target).long() # si notre argument mode = test on renvoievun tenseur de données en float de la taille de notre image et un tenseur de données de la taille de notre target en format long
+            return torch.tensor(image).float(), torch.tensor(self.csv.iloc[index].target).long() # si notre argument mode = test on renvoie un tenseur de données en float de la taille de notre image et un tenseur de données de la taille de notre target en format long
 
-# Dans le cadre de la data Augmentation en deep learning, ils ont fait appel à la libraire ###### Albumentation avec des fonction tels que transform ou encore compose
+# Dans le cadre de la data Augmentation en deep learning, ils ont fait appel à la libraire Albumentation avec des fonction tels que transform ou encore compose
 # Ici Compose va applique deux transformation à la donnée de notre image un resizing et une normalisation
 transforms_val = A.Compose([
     A.Resize(image_size, image_size),
@@ -173,20 +178,20 @@ for i in range(2):
 
 class enetv2(nn.Module):
 
-###############################################################
-# le nn .ModuleUn module est un conteneur dont les couches,   #
-# les sous-parties de modèle et les modèles doivent hériter,  # 
-# l'héritage de nn.Module vous permet d'appeler facilement.   #
-# des méthodes comme .eval (), .parameters ().                #
-###############################################################
+####################################################################
+# le nn .Module est Un module est un conteneur dont les couches,   #
+# les sous-parties de modèle et les modèles doivent hériter,       # 
+# l'héritage de nn.Module vous permet d'appeler facilement.        #
+# des méthodes comme .eval (), .parameters ().                     #
+####################################################################
     def __init__(self, backbone, out_dim, n_meta_features=0, load_pretrained=False):
 
 # backbone fait référence au model de base
 
         super(enetv2, self).__init__()# super () vous donne accès aux méthodes d'une superclasse de la sous-classe qui en hérite.
-        self.n_meta_features = n_meta_features # les meta_features sont initialisé à Zero
+        self.n_meta_features = n_meta_features # les meta_features sont initialisés à Zero
         self.enet = geffnet.create_model(enet_type.replace('-', '_'), pretrained=load_pretrained)
-        #create_model est utilisé pour le deploiement d'un modele,dans les scénarios où vous devez créer un pipeline pour les inférences via plusieurs modèles
+        #create_model est utilisé pour le deploiement d'un modèle, dans les scénarios où vous devez créer un pipeline pour les inférences via plusieurs modèles.
         self.dropout = nn.Dropout(0.5)
 # Pendant l'entraînement, Dropout() met à zéro au hasard certains des éléments du tenseur d'entrée avec une probabilité 0,5,
 # en utilisant des échantillons d'une distribution de Bernoulli
@@ -207,7 +212,7 @@ class enetv2(nn.Module):
         x = self.myfc(self.dropout(x)) 
         return x
 ###############################################################
-# 
+#  La fonction forward permet d'actualiser la data en la transformant en vecteur puis en effectuant une transformation linéaire
 ###############################################################
 
 """# Validation Function"""
@@ -275,7 +280,7 @@ dfs = []
 
 for fold in range(5):
     i_fold = fold
-################################# Mask: Filtre les données du dataset dont les valeurs de la colonne fold sont équivalent au valeur de i_fold #########################
+################################# Mask: Filtre les données du dataset pour chaque fold (valeurs de fold == i_fold) #########################
     df_valid = df_train[df_train['fold'] == i_fold] 
     if DEBUG:
         df_valid = pd.concat([
@@ -304,6 +309,10 @@ for fold in range(5):
 dfs = pd.concat(dfs).reset_index(drop=True)
 dfs['pred'] = np.concatenate(PROBS).squeeze()[:, mel_idx]
 
+##################### Validation du modèle ############################
+#  Utilisation de la metrics auc_score = aire sous la sourbe roc      #
+#  plus elle se rapproche de 1 plus le modèle est précis.             #
+#######################################################################
 # Raw auc_all
 roc_auc_score(dfs['target'] == mel_idx, dfs['pred'])
 
@@ -325,7 +334,7 @@ roc_auc_score(dfs2['target'] == mel_idx, dfs2['pred']).
 """# Predict"""
 
 n_test = 8 
-###################### On definit le dataset de test divisant en plusieurs echantillons #########################
+###################### On definit le dataset de test divisée en plusieurs echantillons #########################
 df_test = df_test if not DEBUG else df_test.sample(batch_size * 3) 
 ####################### On definit un autre dataset de Test en utilisant notre classe SIIMISICDataset ######################
 dataset_test = SIIMISICDataset(df_test, 'test', 'test', transform=transforms_val)
@@ -334,7 +343,7 @@ test_loader = torch.utils.data.DataLoader(dataset_test, batch_size=batch_size, n
 
 ########################################################################################################################################
 ######################## On initialise notre output par une liste vide que l'on va charger #######################
-######################## enetv2 est un modèle permettant d'avoir Une précision donnée ainsi qu'une image size de 600 ###################
+######################## enetv2 est un modèle permettant d'avoir Une précision donnée ainsi qu'une image de taille 600x600 ###################
 #####################################                 https://pypi.org/project/geffnet/             ####################################
 ########################################################################################################################################
 OUTPUTS = [] 
@@ -346,7 +355,7 @@ for fold in range(5):
     state_dict = {k.replace('module.', ''): state_dict[k] for k in state_dict.keys()} # Reconfiguration de tous les objets module.
     model.eval()
 ###############################################################
-#                                                             #
+# Pour chaque fold on évalue le modèle enev2                  #
 ###############################################################
     LOGITS = []
     PROBS = []
@@ -362,7 +371,8 @@ for fold in range(5):
                 for I in range(n_test):
                     l = model(get_trans(data, I), meta)   ##### Utilisation de la fonction get_trans de reconstitution de l'iamge dans Validation Function
                     logits += l
-                    probs += l.softmax(1) ######### Fonction d'activation ##############
+                    probs += l.softmax(1) 
+                    ######### La fonction d'activation softmax permet de rendre le résultat du modèle hautement non linéaire ############
             else:
                 data = data.to(device)
                 logits = torch.zeros((data.shape[0], out_dim)).to(device)
