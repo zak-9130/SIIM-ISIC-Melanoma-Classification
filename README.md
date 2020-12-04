@@ -5,7 +5,7 @@ Licence internationale non commerciale 4.0 : https://creativecommons.org/license
 
    ## Introduction
    
-Le mélanome est une tumeur maligne développée à partir des mélanocytes (cellule épithéliale qui sécrète de la mélanine qui est à l'origine de la pigmentation de la peau et des poils).
+Le mélanome est une tumeur maligne développée à partir des mélanocytes (cellule épithéliale qui sécrète de la mélanine qui est à l'origine de la pigmentation de la peau et des poils.
 C'est l'un des cancers les plus agressifs qui soient, mais le traitement à une phase qui permet de guérir le patient.
 
 La fréquence du mélanome est en augmentation rapide dans le monde entier.
@@ -19,7 +19,7 @@ Le modèle ici doit prédire une target binaire pour chaque image. La prédictio
    ## Différentes sections du code
 
 - Read CSV 
-- Model : 
+- Model 
 - Validation function
 - Predict
 
@@ -34,9 +34,9 @@ Le modèle ici doit prédire une target binaire pour chaque image. La prédictio
 
    ## Méthode speciale: 
      
-- La librairie efficientNet permet d'utiliser le modèle Effnet-B7 avec une taille de 640x640 ainsi que le modèle Enetv2. Ces modèles permettent de classifier des images avec une grande precision.
+- La librairie efficientNet permet d'utiliser le modèle Effnet-B7 avec une taille de 640x640 ainsi que le modèle Enetv2. Ces modèles permettent de classifier des images avec une grande précision.
 - Librairie albumentation : elle permet de palier aux problèmes d'insuffisance de données lors du Deep Learning par la Data augmentation
-- Tqdm :Visualiser la progression de nos itération
+- Tqdm : Visualiser la progression de nos itération
 
    ## Description des données
 
