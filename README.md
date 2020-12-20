@@ -4,7 +4,8 @@
 Licence internationale non commerciale 4.0 : https://creativecommons.org/licenses/by-nc/4.0/legalcode.txt 
 
  ![](index.jpg)
- ![](Cellule.jpg)
+ 
+ ![](Cellule .jpg)
  
    ## Introduction
    
