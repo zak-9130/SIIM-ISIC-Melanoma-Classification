@@ -3,9 +3,10 @@
    ## License
 Licence internationale non commerciale 4.0 : https://creativecommons.org/licenses/by-nc/4.0/legalcode.txt 
 
+ ![](index.jpg)
    ## Introduction
    
-    ![](index.jpg)
+   
     
 Le mélanome est une tumeur maligne développée à partir des mélanocytes (cellule épithéliale qui sécrète de la mélanine qui est à l'origine de la pigmentation de la peau et des poils.
 C'est l'un des cancers les plus agressifs qui soient, mais le traitement à une phase qui permet de guérir le patient.
