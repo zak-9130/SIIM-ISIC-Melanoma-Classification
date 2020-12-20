@@ -51,6 +51,7 @@ Colonnes des fichiers :
 - diagnostic : informations détaillées sur le diagnostic (train uniquement)
 - benign_malignant :  indicateur de malignité d'une lésion imagée
 - target : version binarisée de la cible (maligne)
+![](index.jpg)
 
         Différentes Parties du codage
 
