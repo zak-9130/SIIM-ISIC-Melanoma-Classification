@@ -5,6 +5,8 @@ Licence internationale non commerciale 4.0 : https://creativecommons.org/license
 
    ## Introduction
    
+    ![](index.jpg)
+    
 Le mélanome est une tumeur maligne développée à partir des mélanocytes (cellule épithéliale qui sécrète de la mélanine qui est à l'origine de la pigmentation de la peau et des poils.
 C'est l'un des cancers les plus agressifs qui soient, mais le traitement à une phase qui permet de guérir le patient.
 
@@ -56,6 +58,8 @@ Eléments du dossier:
 - diagnostic : informations détaillées sur le diagnostic (train uniquement)
 - benign_malignant :  indicateur de malignité d'une lésion imagée
 - target : version binarisée de la cible (maligne)
+
+![](index.jpg)
 
     ## Validation du modèle
     
