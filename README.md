@@ -28,7 +28,7 @@ Le modèle ici doit prédire une target binaire pour chaque image. La prédictio
 - Model 
 - Validation function
 - Predict
-- Train Melanoma
+- Train_Melanoma.ipynb
 
    ## Installations et librairies importées
 
