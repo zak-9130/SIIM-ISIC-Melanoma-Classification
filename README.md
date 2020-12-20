@@ -5,7 +5,7 @@ Licence internationale non commerciale 4.0 : https://creativecommons.org/license
 
  ![](index.jpg)
  
- ![](Cellule .jpg)
+ ![](cellule.jpg)
  
    ## Introduction
    
